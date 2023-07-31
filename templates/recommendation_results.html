@@ -1,0 +1,22 @@
+{% extends 'base_recommendation.html' %}
+
+{% block body %}
+
+<h2 style="color:#283747">These are products recommended for you, {{userName}}</h2>
+
+
+<ul class="tilesWrap">
+	
+	{% for key,value in results.items() %}
+	<li>
+		<h2>{{key+1}}</h2>
+		<h3>{{value[0]}}</h3>
+		<br><br>
+		<p>Brand: {{value[2]}}</p>
+		<p>Price: {{value[1]}}</p>
+	</li>
+	{% endfor %}
+	
+</ul>
+
+{% endblock %}

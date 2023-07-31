@@ -1,0 +1,133 @@
+{% extends 'base_index.html' %}
+
+{% block head %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['', ''],
+          ['Not Spam',     {{100-spm_count}}],
+          ['Spam',      {{spm_count}}],
+        ]);
+
+        var options = {
+          title: '',//'*** reviews were scanned,\n *** out them were discarded as spam.',
+          titleTextStyle: {color:'white', fontSize: 14,},
+          is3D: true,
+          backgroundColor: { fill: "#4b4848"},
+          height: 350,
+          legend:{ position:'bottom', textStyle: {color: 'white', fontSize: 14} },
+          colors: ['#3498db', '#FF5733'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+  </script>
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                  
+      </button>
+      <a class="navbar-brand" href="#">COMPLETE REVIEW ANALYSIS SYSTEM</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid text-center" style="padding-top:20px;/*padding-bottom:10px;padding-left:50px;padding-right:50px;*/">    
+  <div class="row content">
+    
+    <!--GENERAL SECTION START-->
+    <div class="col-sm-8" style="padding-top:0px;padding-bottom:20px;padding-left:30px;padding-right:50px;">
+	  <h2 style="color:white;" align="left">General Analysis: </h2>
+	  <div class="panel panel-default">
+  		<div class="panel-body" style="text-align:left;">
+  		  <h2 style="color:white;">Total {{reviews}} reviews scanned for sentiment analysis, </h2>
+		  <h3 style="color:powderblue;">The data cosists of:</h3>
+  		  <div class="col-sm-6">
+		    <div class="well" style="background-color:#f2f2f2;text-align:center;">
+				<h4 style="color:#4b4848;"> {{categories}} &nbsp; Categories</h4>
+			</div>
+		  </div>
+		  <div class="col-sm-6">
+		    <div class="well" style="background-color:#f2f2f2;text-align:center;">
+				<h4 style="color:#4b4848;"> {{brands}} &nbsp; Brands</h4>
+			</div>
+		  </div>
+		  <div class="col-sm-6">
+		    <div class="well" style="background-color:#f2f2f2;text-align:center;">
+				<h4 style="color:#4b4848;"> {{products}} &nbsp; Products</h4>
+			</div>
+		  </div>
+		  
+	    </div>
+	  </div>
+	  <br>
+	  <p style="color:powderblue;">Only positive reviews are considered for further analysis..</p>
+	  <a href="{{ url_for('data_dashboard') }}" style="hover{padding: 1em 1em;}"><h1>View Detailed Data Analysis >>></h1></a>
+   </div>
+	<!--GENERAL SECTION END-->
+	
+	<!--SPAM START-->
+	<div class="col-sm-4">
+	  <div class="panel panel-danger" style="height:500px;">
+  		<div class="panel-heading text-center">Spam Detection</div>
+  		<div class="panel-body" style="padding:50px;">
+  			<div id="piechart_3d"></div>
+  			<!--<h4 style="color:white;">*** reviews were scanned, *** out them were discarded as spam.</h4>-->
+  		</div>
+	  </div>
+	</div>
+	<!--SPAM END-->
+	
+  </div>
+</div>
+
+
+<!--RECOMMENDATION START-->
+<div class="container-fluid" style="background-color:none;">    
+  <!--<div class="row content">-->
+  <hr>
+	<div class="col-sm-10">
+	  <div class="panel panel-info">
+  		<div class="panel-heading text-center">Get Recommendations</div>
+  		<div class="panel-body">
+  			<br>
+  			<h4 style="color:white;">Please enter your 'User Id' below to get the relevant product recommendations...</h4>
+  			<br><br>
+  			<form class="form-inline" action="/Recommendations" method="POST">
+		  		<div class="form-group">
+		  			<div class="input-group">
+		  				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" class="form-control" name="user_id" placeholder="Enter user id">
+		  			</div>
+		  		</div>
+		  		<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+  		</div>
+	  </div>
+	</div>
+  <!--</div>-->
+</div>
+<!--RECOMMENDATION END-->
+
+
+<footer class="container-fluid text-center">
+  <div class="footer-copyright text-center py-3" style="color:white;">© 2020 BE Project</div>
+  <div class="footer-copyright text-right py-3" style="color:white;">Group No 21</div>
+</footer>
+
+{% endblock %}
+

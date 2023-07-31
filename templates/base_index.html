@@ -1,0 +1,82 @@
+<! doctype html>
+
+<html>
+
+<head>
+  
+  <title>Welcome to Review Analysis System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  {% block head %}
+	
+  {% endblock %}
+  
+  <style>
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    
+    .panel-body {
+		background-color: #4b4848;
+	}
+	.panel {
+	  border-radius: 10px;
+	  box-shadow: none;
+	  background-color: #4b4848;
+	  border-width: 5px;
+	}
+	.col-sm-10{
+		padding : 10px;
+		padding-left : 300px;
+	}
+    
+    .container-fluid{
+    	/*background: tan;*/
+    }
+    
+    body{
+    	background: linear-gradient(to top left, #2f4f4f 0%, #808080 100%);
+    }
+    
+    a:hover {
+  		cursor: pointer;
+  		color: black;
+	}
+	a:link {
+  		color: white;
+	}
+    
+    hr{
+		height: 1px;
+		background-color: black;
+		border: 2px;
+		border-radius: 2px;
+		margin-left:30px;
+		margin-right:30px;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+  </style>
+	
+	
+	<!--<link rel="stylesheet" href="static/hf.css" />-->
+</head>
+
+<body>
+	{% block body %}
+	
+	{% endblock %}
+</body>
+
+</html>

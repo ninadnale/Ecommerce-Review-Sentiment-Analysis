@@ -1,0 +1,273 @@
+{% extends 'base_data_dashboard.html' %}
+
+{% block head %}
+  <title>Product Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    body {
+  		padding: 0px;
+	}
+    footer {
+      background-color: #f2f2f2;
+      padding: 15px;
+    }
+    
+    .container-fluid {
+    	/*background-color: #4b4848;*/
+    	background: linear-gradient(to bottom, #4b4848 0%, #5d6d7e 100%);
+	}
+	.panel-body {
+		background-color: 666464;
+	}
+	.panel {
+	  border-radius: 10px;
+	  box-shadow: none;
+	  background-color: #4b4848;
+	}
+	
+	
+	h1 {
+  		font: bold 330%/100% "Lucida Grande";
+  		position: relative;
+  		color: #f2f2f2;
+	}
+	h1 span {
+  		position: absolute;
+  		display: block;
+  		width: 100%;
+  		height: 31px;
+	}
+	h5{
+		font-family: "Courier New", Courier, monospace;
+	}
+		
+  </style>
+  
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load Charts and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Draw the pie chart for overall sentiments.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Draw the pie chart for aspect based setiments.
+      google.charts.setOnLoadCallback(drawBar1);
+      google.charts.setOnLoadCallback(drawBar2);
+      google.charts.setOnLoadCallback(drawBar3);
+
+      // Callback that draws the pie chart for overall sentiments.
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Sentiment', 'Number of Reviews'],
+          ['Positive', {{positive}}],
+          ['Neagtive', {{negative}}],
+          //['Neutral',  1520]
+        ]);
+
+        var options = {
+          title: 'Overall Sentiment Analysis',
+          titleTextStyle: {color: '#bfc9ca' , fontName: 'Arial' ,fontSize: '18'},
+          pieHole: 0.7,
+          //width:750,
+          height:550,
+          backgroundColor: { fill: "666464", stroke: '#aed6f1', strokeWidth: '5' },
+          colors: [ '#2980b9', '#7e57c2', '#1f618d', '#2471a3', '#5dade2'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+      
+  </script>
+  
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid"><!--Container START-->
+<div class="row"><!--1st ROW START-->
+  <div class="col-sm-12">
+  	<h1 style="font-family: 'Comic Sans MS', cursive, sans-serif;">PRODUCT REVIEW ANALYSIS</h1>
+  </div>
+</div><!--1st ROW END-->
+<hr>
+<div class="row"><!--2nd ROW START-->
+  <div class="col-sm-6" id="donutchart"></div>
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+  	
+  	<div class="row">
+	  
+	  <div class="row">
+	  	<br><br><h2 style="color:#a9cce3;">Total {{reviews}} reviews were scanned, </h2>
+	  </div>	
+	  
+	  <br><br><br><br>
+	  
+	  <div class="row">
+	  	<h3 style="color:#a9cce3;">&nbsp;&nbsp;&nbsp;There are </h3>
+	  </div>
+	  
+	  <div class="row">
+	  	  <!--<div class="col-sm-1"></div>-->
+		  <div class="col-sm-4">
+		  	<div class="well" style="background-color:#f2f2f2;">
+				<h4 style="color:#4b4848;"> {{products}} products</h4>
+			</div>
+		  </div>
+	  </div>
+	  <div class="row">
+	  	  <!--<div class="col-sm-1"></div>-->
+		  <div class="col-sm-4">
+		  	<div class="well" style="background-color:#f2f2f2;">
+				<h4 style="color:#4b4848;"> {{categories}} &nbsp; Categories</h4>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<div class="well" style="background-color:#f2f2f2;">
+				<h4 style="color:#4b4848;"> {{brands}} &nbsp; Brands</h4>
+			</div>
+		  </div>
+	  </div>
+	  <!--	
+	  	<h4>&emsp;&emsp; <span class="badge">{{products}}</span>  products,</h4>
+	  	<h4>&emsp;&emsp; <span class="badge">{{categories}}</span>  categories of products,</h4>
+	  	<h4>&emsp;&emsp; <span class="badge">***</span> brands.</h4><br>
+	  -->
+	</div>
+  
+  </div>
+</div><!--2nd ROW END-->
+
+<div class="row row-no-gutters"><!--3rd ROW START-->
+  
+  
+  <div class="col-sm-7" style="padding:50px;">
+	  <div class="row row-no-gutters"><!--1st ROW of 3 STATUS BARS START-->
+	  
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color: #eeeeee ;"><span class="label label-default">46 %</span> Packing  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{packing}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-packing}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color:white;"><span class="label label-default">46 %</span> Delivery  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{delivery}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-delivery}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color:white;"><span class="label label-default">46 %</span> Service  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{service}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-service}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+	  </div><!--1st ROW of 3 STATUS BARS END-->
+	  
+	  <div class="row row-no-gutters"><!--2nd ROW of 3 STATUS BARS START-->
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color:white;"><span class="label label-default">46 %</span> Payment  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{payment}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-payment}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color:white;"><span class="label label-default">46 %</span> Quality  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{quality}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-quality}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<div class="panel panel-default">
+		  		<div class="panel-body">
+		  			<h5 style="color:white;"><span class="label label-default">46 %</span> Returns  </h5>
+		  			<div class="progress">
+				  	 	<div class="progress-bar progress-bar-success" role="progressbar" style="width:{{returns}}%"></div>
+				  	 	<div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{100-returns}}%"></div>
+				 	</div>
+		  		</div>
+		  	</div>
+		  </div>
+	  
+	  </div><!--2nd ROW of 3 STATUS BARS END-->
+  </div>
+  
+  
+  <div class="col-sm-4" id="recommendation_form" style="padding-left: 50px;padding-top:50px;">
+  	<div class="panel panel-info" style="">
+  		<div class="panel-heading">Get Recommendations</div>
+  		<div class="panel-body">
+  			<br>
+  			<p style="color:white;">Please enter your 'User Id' below to get the relevant </p><p style="color:white;">product recommendations...</p>
+  			<br>
+  			<form class="form-inline" action="/Recommendations" method="POST">
+		  		<div class="form-group">
+					<input type="text" class="form-control" name="user_id" placeholder="Enter user id">
+		  		</div>
+		  		<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+  		</div>
+	</div>
+  </div>
+
+</div><!--3rd ROW END-->
+
+</div><!--Container END-->
+
+
+<footer class="container-fluid text-center">
+  <div class="footer-copyright text-center py-3" style="color:white;">© 2020 BE Project</div>
+  <div class="footer-copyright text-right py-3" style="color:white;">Group No 21</div>
+</footer>
+
+
+{% endblock %}
+
